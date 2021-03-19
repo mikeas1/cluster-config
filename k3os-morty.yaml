@@ -1,0 +1,31 @@
+ssh_authorized_keys:
+- github:mikeas1
+write_files:
+- encoding: ""
+  content: |-
+    NEED_STATD=yes
+  owner: root
+  path: /etc/default/nfs-common
+  permissions: '0755'
+hostname: morty
+boot_cmd:
+- rc-update add rpc.statd
+- rc-update add nfs
+
+k3os:
+  modules:
+  - nfs
+  dns_nameservers:
+  - 192.168.1.1
+  - 8.8.8.8
+  - 1.1.1.1
+  ntp_servers:
+  - 0.us.pool.ntp.org
+  - 1.us.pool.ntp.org
+  password: rancher
+  server_url: https://192.168.1.7:6443
+  token: K101583764263eb145e2443e84ee2a8e35b8928e33201f3136af650e7a83a45e698::server:c06c7ccd7d12804c7ca2a92710b0ea93
+  labels:
+    arch: amd64
+  k3s_args:
+  - agent
